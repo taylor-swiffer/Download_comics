@@ -1,0 +1,116 @@
+#:kivy 1.0.9
+
+<MyButton@Button>:
+    background_normal: "img/default.png"
+    background_down: "img/default_clicked.png"
+    font_name: "Montserrat1"
+
+<MyLabel@Label>:
+    font_name: "Montserrat1"
+    size_hint: 0.1, 0.1
+    markup: True
+
+<MenuButton@Button>:
+    background_normal: "img/dark button.png"
+    background_down: "img/dark button clicked.png"
+    font_name: "Montserrat1"
+
+<MyMenu>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "img/background 2 light.png"
+    Image:
+        size: 250, 250
+        source: "img/Book Icon.png"
+        pos: root.center_x-self.width/2, menu_box.center_y+self.height/4
+    BoxLayout:
+        id: menu_box
+        orientation: 'vertical'
+        width: root.width
+        pos: root.center_x-self.width/2, root.center_y
+        MenuButton:
+            text: "Select Comic"
+        MenuButton:
+            text: "Create PDF"
+        MenuButton:
+            text: "Info"
+            on_release: root.show_popup()
+        MenuButton:
+            text: "Quit"
+            on_press: root.close_app()
+
+<DownloadComicsLayout>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "img/background.png"
+
+    MyLabel:
+        id: title
+        text: "[b]Insert Comic Title[/b]"
+        font_size: 15
+        pos: root.center_x-self.width, root.top-100
+    
+    GridLayout:
+        cols: 3
+        padding: 4, 4, 4, 4
+        size: root.width, root.height-title.height-convert.height
+        pos: 0, convert.height
+        
+        MyButton:
+            id: but1
+        MyButton:
+            id: but2
+        MyButton:
+            id: but3
+        MyLabel:
+            id: lab1
+            text: 'result 1'
+        MyLabel:
+            id: lab2
+            text: '[i]result 2[/i]'
+        MyLabel:
+            id: lab3
+            text: '[i]result 3[/i]'
+        MyButton:
+            id: but4
+        MyButton:
+            id: but5
+        MyButton:
+            id: but6
+        MyLabel:
+            id: lab4
+            text: '[i]result 4[/i]'
+        MyLabel:
+            id: lab5
+            text: '[i]result 5[/i]'
+        MyLabel:
+            id: lab5
+            text: '[i]result 6[/i]'
+    DarkButton:
+        id: convert
+        source: "img/dark button rounded.png"
+        font_name: "Montserrat1"
+        size: button_label.width+(len(button_label.text)*6), button_label.height/2
+        keep_ratio: False
+        allow_stretch: True
+        pos: root.width - self.width, 0
+        on_press: self.convert()
+        Label:
+            id: button_label
+            pos: convert.center_x-(self.width/2), convert.center_y-50
+            text: "Convert To PDF"
+    
+    MyMenu:
+        id: menu
+        size: 300, root.height
+        pos: -300, root.height-self.height
+    Button:
+        id: menu_but
+        pos: 0, root.height-self.height
+        background_normal: "img/menu-button.png"
+        background_down: "img/menu-button-clicked.png"
+        on_press: root.animate(self)
